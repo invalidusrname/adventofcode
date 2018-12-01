@@ -1,5 +1,4 @@
 class FrequencyScanner
-
   attr_reader :numbers
 
   def initialize(numbers)
