@@ -1,5 +1,6 @@
 *.gem
 *.rbc
+2018/ruby/bin/*
 /.config
 /coverage/
 /InstalledFiles
