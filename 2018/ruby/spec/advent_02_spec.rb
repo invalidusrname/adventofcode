@@ -6,14 +6,14 @@ describe 'Scanner' do
     File.readlines('spec/fixtures/advent-02.txt').map(&:chomp)
   end
 
-  let(:sample_input) do 
-    [
-      'bababc',
-      'abbcde',
-      'abcccd',
-      'aabcdd',
-      'abcdee',
-      'ababab',
+  let(:sample_input) do
+    %w[
+      bababc
+      abbcde
+      abcccd
+      aabcdd
+      abcdee
+      ababab
     ]
   end
 
@@ -25,15 +25,15 @@ describe 'Scanner' do
 
     expect(scanner.lines_that_repeat(2)).to eq([])
 
-    expect(scanner.checksum()).to eq(0)
+    expect(scanner.checksum).to eq(0)
   end
 
   it "knows how to count 2 and 3 repeats" do
     scanner = Scanner.new(sample_input)
     scanner.scan
 
-    twice = ["bababc", "abbcde", "aabcdd", "abcdee"]
-    thrice = ["bababc", "abcccd", "ababab"]
+    twice = %w[bababc abbcde aabcdd abcdee]
+    thrice = %w[bababc abcccd ababab]
 
     expect(scanner.lines_that_repeat(2)).to eq(twice)
     expect(scanner.lines_that_repeat(3)).to eq(thrice)
@@ -43,7 +43,7 @@ describe 'Scanner' do
     scanner = Scanner.new(sample_input)
     scanner.scan
 
-    expect(scanner.checksum()).to eq(12)
+    expect(scanner.checksum).to eq(12)
   end
 
   it "calculates a checksum", solution: true do
@@ -51,6 +51,6 @@ describe 'Scanner' do
     scanner = Scanner.new(puzzle_input)
     scanner.scan
 
-    expect(scanner.checksum()).to eq(5434)
+    expect(scanner.checksum).to eq(5434)
   end
 end
