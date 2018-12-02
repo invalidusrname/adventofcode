@@ -47,7 +47,6 @@ describe 'Scanner' do
   end
 
   it "calculates a checksum", solution: true do
-    print puzzle_input
     scanner = Scanner.new(puzzle_input)
     scanner.scan
 
