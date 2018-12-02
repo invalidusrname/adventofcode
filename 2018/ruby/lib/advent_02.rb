@@ -72,7 +72,7 @@ class Scanner
   end
 
   def lines_that_differ(character_count = 1)
-    lines = records    
+    lines = records
     differences = {}
 
     records.each do |line|
@@ -80,16 +80,11 @@ class Scanner
         difference_count(line, another_line) == character_count
       end
 
-      if matches.count > 0
-        differences[line] = matches
-      end
+      differences[line] = matches if matches.count > 0
     end
 
-    if differences.keys.length > 0
-      differences.first.flatten      
-    end
+    differences.first.flatten unless differences.keys.empty?
   end
-
 
   def checksum
     multipliers = [

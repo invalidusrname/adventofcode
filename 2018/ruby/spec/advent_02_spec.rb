@@ -66,7 +66,7 @@ describe 'Scanner' do
 
     scanner = Scanner.new(input)
 
-    expect(scanner.lines_that_differ).to eq(['fghij', 'fguij'])
+    expect(scanner.lines_that_differ).to eq(%w[fghij fguij])
   end
 
   it "knows the common characters between to box ids" do
@@ -80,10 +80,10 @@ describe 'Scanner' do
 
     matches = scanner.lines_that_differ
 
-    expect(scanner.lines_that_differ).to eq([
-      "agirmdjvlhedpsyoqfzuknpjwt", 
-      "agitmdjvlhedpsyoqfzuknpjwt"
-    ])
+    expect(scanner.lines_that_differ).to eq(%w[
+                                              agirmdjvlhedpsyoqfzuknpjwt
+                                              agitmdjvlhedpsyoqfzuknpjwt
+                                            ])
 
     expect(scanner.common_characters(matches[0], matches[1])).to eq(
       'agimdjvlhedpsyoqfzuknpjwt'

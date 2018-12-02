@@ -11,6 +11,8 @@ Style/StringLiterals:
   Enabled: false
 Style/TrailingCommaInHashLiteral:
   Enabled: false
+Style/NumericPredicate:
+  Enabled: false
 Metrics/BlockLength:
   Exclude:
     - spec/**/*
