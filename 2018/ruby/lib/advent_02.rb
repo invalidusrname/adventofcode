@@ -32,7 +32,7 @@ class Scanner
   end
 
   def line_repeats?(line, times)
-    return unless scanned.key?(line)
+    return false unless scanned.key?(line)
 
     scanned[line].any? { |_character, count| count == times }
   end
@@ -42,6 +42,54 @@ class Scanner
       line_repeats?(line, times)
     end.compact.keys
   end
+
+  def difference_count(line, another_line)
+    count = 0
+
+    first_characters = box_ids(line)
+    second_characters = box_ids(another_line)
+
+    first_characters.each_index do |index|
+      count += 1 if first_characters[index] != second_characters[index]
+    end
+
+    count
+  end
+
+  def common_characters(line, another_line)
+    first_characters = box_ids(line)
+    second_characters = box_ids(another_line)
+
+    letters = ''
+
+    first_characters.each_index do |index|
+      if first_characters[index] == second_characters[index]
+        letters << first_characters[index]
+      end
+    end
+
+    letters
+  end
+
+  def lines_that_differ(character_count = 1)
+    lines = records    
+    differences = {}
+
+    records.each do |line|
+      matches = lines.select do |another_line|
+        difference_count(line, another_line) == character_count
+      end
+
+      if matches.count > 0
+        differences[line] = matches
+      end
+    end
+
+    if differences.keys.length > 0
+      differences.first.flatten      
+    end
+  end
+
 
   def checksum
     multipliers = [

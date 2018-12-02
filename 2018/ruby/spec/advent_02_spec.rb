@@ -52,4 +52,41 @@ describe 'Scanner' do
 
     expect(scanner.checksum).to eq(5434)
   end
+
+  it "knows when 2 box ids differ by one character at the same position" do
+    input = %w[
+      abcde
+      fghij
+      klmno
+      pqrst
+      fguij
+      axcye
+      wvxyz
+    ]
+
+    scanner = Scanner.new(input)
+
+    expect(scanner.lines_that_differ).to eq(['fghij', 'fguij'])
+  end
+
+  it "knows the common characters between to box ids" do
+    scanner = Scanner.new([])
+
+    expect(scanner.common_characters('fghij', 'fguij')).to eq('fgij')
+  end
+
+  it "knows the common characters", solution: true do
+    scanner = Scanner.new(puzzle_input)
+
+    matches = scanner.lines_that_differ
+
+    expect(scanner.lines_that_differ).to eq([
+      "agirmdjvlhedpsyoqfzuknpjwt", 
+      "agitmdjvlhedpsyoqfzuknpjwt"
+    ])
+
+    expect(scanner.common_characters(matches[0], matches[1])).to eq(
+      'agimdjvlhedpsyoqfzuknpjwt'
+    )
+  end
 end
