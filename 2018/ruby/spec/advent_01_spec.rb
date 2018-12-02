@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'advent_01'
+require 'advent_02'
 
 describe 'FrequencyScanner' do
   let(:puzzle_input) do
