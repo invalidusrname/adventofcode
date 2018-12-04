@@ -75,7 +75,7 @@ describe 'Scanner' do
     expect(scanner.common_characters('fghij', 'fguij')).to eq('fgij')
   end
 
-  it "knows the common characters", solution: true do
+  it "knows the common characters", slow: true do
     scanner = Scanner.new(puzzle_input)
 
     matches = scanner.lines_that_differ
