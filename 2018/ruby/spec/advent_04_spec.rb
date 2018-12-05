@@ -35,6 +35,9 @@ describe 'SleepAnalyzer' do
 
   it "solves the puzzle" do
     reader = SleepAnalyzer.new(puzzle_input)
-    expect(reader.process).to eq('12312')
+    reader.process
+
+    expect(reader.part_1).to eq(11367)
+    expect(reader.part_2).to eq(36896)
   end
 end

@@ -2,8 +2,12 @@ require 'date'
 
 class SleepAnalyzer
 
+  attr_reader :timesheet, :counts
+
   def initialize(records)
     @records = records
+    @timesheet = {}
+    @counts = {}
   end
 
   def process
@@ -20,7 +24,6 @@ class SleepAnalyzer
     start_date = dates.first[1][:datetime].to_date
     end_date = dates.last[1][:datetime].to_date
 
-    timesheet = {}
     current_guard = nil
     currently_sleeping = 0
 
@@ -53,18 +56,18 @@ class SleepAnalyzer
       end
     end
 
-    counts = {}
+    calculate_counts
+  end
 
+  def calculate_counts
     timesheet.each do |timestamp, ts|
       minute = DateTime.strptime(timestamp.to_s,'%s').min
       guard_id = ts[0]
       asleep = ts[1]
 
       if counts.has_key?(guard_id) == false
-        counts[guard_id] = {'total' => 0}
+        counts[guard_id] = {}
       end
-
-      counts[guard_id]['total'] += asleep
 
       if counts[guard_id].has_key?(minute) == false
         counts[guard_id][minute] = asleep
@@ -72,15 +75,48 @@ class SleepAnalyzer
         counts[guard_id][minute] += asleep
       end
     end
+  end
 
-    guard_id = counts.max_by { |k,v| counts[k]['total'] }[0]
+  def sleepiest_guard
+    counts.max_by do |k,v|
+      sum = 0
+      counts[k].each do |_k, amount|
+        sum += amount
+      end
+      sum
+    end[0]
+  end
 
+  def preferred_minute(guard_id)
     h = counts[guard_id]
-    h.delete('total')
 
-    preferred_minute = h.max_by { |k,v| v }[0]
+    h.max_by { |k,v| v }[0]
+  end
 
-    guard_id * preferred_minute
+  def preferred_minute_total(guard_id)
+    h = counts[guard_id]
+
+    h.max_by { |k,v| v }[1]
+  end
+
+  def part_1
+    guard_id = sleepiest_guard
+    min = preferred_minute(guard_id)
+
+    guard_id * min
+  end
+
+  def part_2
+    totals = counts.keys.compact.map do |guard_id, val|
+      minute = preferred_minute(guard_id)
+      total = preferred_minute_total(guard_id)
+
+      [guard_id, minute, total]
+    end
+
+    winner = totals.max { |a, b| a[2] <=> b[2] }
+
+    winner[0] * winner[1]
   end
 
   def parse_line(line)
