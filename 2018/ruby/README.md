@@ -1,6 +1,6 @@
 # Advent of Code 
 
-Solutions for 2018 done in Ruby
+Solutions for [Advent of Code 2018](https://adventofcode.com/2018) done in Ruby
 
 ## Setup
 
@@ -9,4 +9,4 @@ Solutions for 2018 done in Ruby
 ### Runnning tests
 
     ./bin/rspec spec
-    
+
