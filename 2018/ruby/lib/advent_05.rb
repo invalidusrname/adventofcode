@@ -42,6 +42,7 @@ class Polymer
   def destroy?
     same_type? && opposite_polarity?
   end
+
 end
 
 class AlchemicalReduction
@@ -76,11 +77,8 @@ class AlchemicalReduction
     reduced = line.chars
 
     loop do
-      # puts "CHARS: #{reduced.inspect}"
       length = reduced.length
       reduced = reduce(reduced)
-
-      # puts "REDUCED: #{reduced.inspect}"
       break if reduced.length == length
     end
 

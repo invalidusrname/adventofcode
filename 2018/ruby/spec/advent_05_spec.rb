@@ -24,10 +24,55 @@ describe 'AlchemicalReduction' do
     end
   end
 
-  it "solves the puzzle" do
+  xit "solves part 1" do
     reader = AlchemicalReduction.new(puzzle_input)
     reader.process
 
     expect(reader.reduction.length).to eq(9348)
+  end
+
+  it "reduces polymer by stripping a single letter" do
+    counts = {}
+    puzzle_input = 'dabAcCaCBAcCcaDA'
+
+    ('a'..'d').each do |letter|
+      new_input = puzzle_input.tr(letter, '')
+      new_input = new_input.tr(letter.upcase, '')
+
+      reader = AlchemicalReduction.new(new_input)
+      reader.process
+
+      # puts "[#{letter}] #{new_input} -> #{reader.reduction} [#{reader.reduction.length}]"
+
+      length = reader.reduction.length
+      counts[letter] = length
+    end
+
+    # puts counts
+    lowest = counts.sort_by { |key, value| value }.first
+
+    expect(lowest[0]).to eq("c")
+    expect(lowest[1]).to eq(4)
+  end
+
+  xit "solves part 2" do
+    counts = {}
+
+    ('a'..'z').each do |letter|
+      new_input = puzzle_input.tr(letter, '')
+      new_input = new_input.tr(letter.upcase, '')
+
+      reader = AlchemicalReduction.new(new_input)
+      reader.process
+      length = reader.reduction.length
+
+      # puts "#{letter}: #{length}"
+      counts[letter] = length
+    end
+
+    lowest = counts.sort_by { |key, value| value }.first
+
+    expect(lowest[0]).to eq("f")
+    expect(lowest[1]).to eq(4996)
   end
 end
