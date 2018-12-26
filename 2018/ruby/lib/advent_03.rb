@@ -1,7 +1,6 @@
 require 'matrix'
 
 class ClaimReader
-
   def initialize(raw_claims)
     @raw_claims = raw_claims
   end
@@ -11,17 +10,17 @@ class ClaimReader
   end
 
   def convert_to_claim(line)
-      line.strip!
-      splits = line.split(" ")
-      id = splits.first[1..-1]
+    line.strip!
+    splits = line.split(" ")
+    id = splits.first[1..-1]
 
-      left, top = splits[2].strip.split(":")[0].strip.split(',')
-      width, height = splits[3].strip.split(':')[0].split("x")
+    left, top = splits[2].strip.split(":")[0].strip.split(',')
+    width, height = splits[3].strip.split(':')[0].split("x")
 
-      offset = Offset.new(left.to_i, top.to_i)
-      rectangle = Rectangle.new(width.to_i, height.to_i, offset)
+    offset = Offset.new(left.to_i, top.to_i)
+    rectangle = Rectangle.new(width.to_i, height.to_i, offset)
 
-      Claim.new(id, rectangle)
+    Claim.new(id, rectangle)
   end
 end
 
@@ -35,7 +34,6 @@ class Offset
 end
 
 class Rectangle
-
   attr_reader :width, :height, :offset
 
   def initialize(width, height, offset)

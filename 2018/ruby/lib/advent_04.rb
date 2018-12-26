@@ -1,7 +1,6 @@
 require 'date'
 
 class SleepAnalyzer
-
   attr_reader :timesheet, :counts
 
   def initialize(records)
@@ -19,7 +18,7 @@ class SleepAnalyzer
       data[timestamp] = h
     end
 
-    dates = data.sort_by {|key, value| key }
+    dates = data.sort_by { |key, _value| key }
 
     start_date = dates.first[1][:datetime].to_date
     end_date = dates.last[1][:datetime].to_date
@@ -32,9 +31,9 @@ class SleepAnalyzer
         (0..59).each do |m|
           dt = DateTime.new(date.year, date.month, date.mday, h, m, 0)
           timestamp = dt.to_time.to_i
-          #puts "#{dt.to_s} -- #{timestamp} #{data.has_key?(timestamp)}"
+          # puts "#{dt.to_s} -- #{timestamp} #{data.has_key?(timestamp)}"
 
-          if data.has_key?(timestamp)
+          if data.key?(timestamp)
             d = data[timestamp]
 
             if d[:guard_id]
@@ -52,7 +51,6 @@ class SleepAnalyzer
 
           timesheet[timestamp] = [current_guard, currently_sleeping]
         end
-
       end
     end
 
@@ -61,15 +59,13 @@ class SleepAnalyzer
 
   def calculate_counts
     timesheet.each do |timestamp, ts|
-      minute = DateTime.strptime(timestamp.to_s,'%s').min
+      minute = DateTime.strptime(timestamp.to_s, '%s').min
       guard_id = ts[0]
       asleep = ts[1]
 
-      if counts.has_key?(guard_id) == false
-        counts[guard_id] = {}
-      end
+      counts[guard_id] = {} if counts.key?(guard_id) == false
 
-      if counts[guard_id].has_key?(minute) == false
+      if counts[guard_id].key?(minute) == false
         counts[guard_id][minute] = asleep
       else
         counts[guard_id][minute] += asleep
@@ -78,7 +74,7 @@ class SleepAnalyzer
   end
 
   def sleepiest_guard
-    counts.max_by do |k,v|
+    counts.max_by do |k, _v|
       sum = 0
       counts[k].each do |_k, amount|
         sum += amount
@@ -90,13 +86,13 @@ class SleepAnalyzer
   def preferred_minute(guard_id)
     h = counts[guard_id]
 
-    h.max_by { |k,v| v }[0]
+    h.max_by { |_k, v| v }[0]
   end
 
   def preferred_minute_total(guard_id)
     h = counts[guard_id]
 
-    h.max_by { |k,v| v }[1]
+    h.max_by { |_k, v| v }[1]
   end
 
   def part_1
@@ -107,14 +103,14 @@ class SleepAnalyzer
   end
 
   def part_2
-    totals = counts.keys.compact.map do |guard_id, val|
+    totals = counts.keys.compact.map do |guard_id, _val|
       minute = preferred_minute(guard_id)
       total = preferred_minute_total(guard_id)
 
       [guard_id, minute, total]
     end
 
-    winner = totals.max { |a, b| a[2] <=> b[2] }
+    winner = totals.max_by { |a| a[2] }
 
     winner[0] * winner[1]
   end

@@ -1,5 +1,4 @@
 class Coordinate
-
   attr_reader :x, :y, :count
   attr_writer :count
 
@@ -19,13 +18,12 @@ class Coordinate
 end
 
 class ChronalCoordinates
-
   attr_reader :coordinates
 
   def initialize(coordinates)
     @coordinates = coordinates
 
-    @grid = Hash.new
+    @grid = {}
     @counts = Hash.new(0)
 
     fill_grid
@@ -34,19 +32,19 @@ class ChronalCoordinates
   end
 
   def min_x
-    @min_x ||= @coordinates.collect { |c| c.x }.min
+    @min_x ||= @coordinates.collect(&:x).min
   end
 
   def max_x
-    @max_x ||= @coordinates.collect { |c| c.x }.max
+    @max_x ||= @coordinates.collect(&:x).max
   end
 
   def min_y
-    @min_y ||= @coordinates.collect { |c| c.y }.min
+    @min_y ||= @coordinates.collect(&:y).min
   end
 
   def max_y
-    @max_y ||= @coordinates.collect { |c| c.y }.max
+    @max_y ||= @coordinates.collect(&:y).max
   end
 
   def infinite_coordinate?(coordinate)
@@ -61,7 +59,7 @@ class ChronalCoordinates
 
     (min_x..max_x).each do |x|
       (min_y..max_y).each do |y|
-        point = Coordinate.new(x,y)
+        point = Coordinate.new(x, y)
         closest = @grid[point.to_s]
         if closest.is_a?(Coordinate)
           locations << closest if infinite_coordinate?(point)
@@ -75,14 +73,12 @@ class ChronalCoordinates
   def largest_area
     infinite = infinite_locations
 
-    allowed = @counts.reject do |c, total|
+    allowed = @counts.reject do |c, _total|
       infinite.any? { |i| i.x == c.x && i.y == c.y }
     end
 
     @counts.collect do |coordinate, total|
-      if allowed.include?(coordinate)
-        total
-      end
+      total if allowed.include?(coordinate)
     end.flatten.compact.max
   end
 
@@ -97,7 +93,7 @@ class ChronalCoordinates
   def fill_grid
     (min_x..max_x).each do |x|
       (min_y..max_y).each do |y|
-        point = Coordinate.new(x,y)
+        point = Coordinate.new(x, y)
         @grid[point.to_s] = get_coordinate(point) || '.'
       end
     end
@@ -106,9 +102,10 @@ class ChronalCoordinates
   def fill_closest
     (min_x..max_x).each do |x|
       (min_y..max_y).each do |y|
-        point = Coordinate.new(x,y)
+        point = Coordinate.new(x, y)
 
         next if @grid[point.to_s].is_a?(Coordinate)
+
         coordinate = closest_coordinate(point)
 
         if coordinate
@@ -120,10 +117,8 @@ class ChronalCoordinates
   end
 
   def fill_counts
-    @grid.each do |key, value|
-      if value.is_a?(Coordinate)
-        @counts[value] += 1
-      end
+    @grid.each do |_key, value|
+      @counts[value] += 1 if value.is_a?(Coordinate)
     end
   end
 
@@ -172,13 +167,13 @@ class ChronalCoordinates
 
     (min_x..max_x).each do |x|
       (min_y..max_y).each do |y|
-        point = Coordinate.new(x,y)
+        point = Coordinate.new(x, y)
 
         total = @coordinates.inject(0) do |sum, c|
           sum + manhattan_distance(point, c)
         end
 
-        count += 1 unless total >= 10000
+        count += 1 unless total >= 10_000
       end
     end
 

@@ -10,12 +10,12 @@ describe 'ChronalCoordinates' do
 
   let(:sample_input) do
     [
-      [1,1],
-      [1,6],
-      [8,3],
-      [3,4],
-      [5,5],
-      [8,9],
+      [1, 1],
+      [1, 6],
+      [8, 3],
+      [3, 4],
+      [5, 5],
+      [8, 9]
     ]
   end
 
@@ -47,6 +47,6 @@ describe 'ChronalCoordinates' do
     end
 
     c = ChronalCoordinates.new(coordinates)
-    expect(c.largest_region).to eq(49327)
+    expect(c.largest_region).to eq(49_327)
   end
 end

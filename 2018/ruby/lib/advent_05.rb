@@ -24,7 +24,6 @@ class Unit
 end
 
 class Polymer
-
   def initialize(unit_a, unit_b)
     @unit_a = unit_a
     @unit_b = unit_b
@@ -42,11 +41,9 @@ class Polymer
   def destroy?
     same_type? && opposite_polarity?
   end
-
 end
 
 class AlchemicalReduction
-
   attr_reader :line
   attr_accessor :reduction
 
@@ -59,13 +56,13 @@ class AlchemicalReduction
     chars.each_index do |i|
       next if i == 0
 
-      unit_a = Unit.new(chars[i-1])
+      unit_a = Unit.new(chars[i - 1])
       unit_b = Unit.new(chars[i])
 
       polymer = Polymer.new(unit_a, unit_b)
 
       if polymer.destroy?
-        chars[i-1] = nil
+        chars[i - 1] = nil
         chars[i] = nil
       end
     end

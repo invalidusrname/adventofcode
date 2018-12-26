@@ -8,19 +8,19 @@ describe 'AlchemicalReduction' do
 
   let(:sample_input) do
     {
-        "aA"     => "",
-        "abBA"   => "",
-        "abAB"   => "abAB",
-        "aabAAB" => "aabAAB",
+      "aA" => "",
+      "abBA" => "",
+      "abAB" => "abAB",
+      "aabAAB" => "aabAAB",
     }
   end
 
   it "reduces some sample input" do
     sample_input.each do |input, result|
-        reader = AlchemicalReduction.new(input)
-        reader.process
+      reader = AlchemicalReduction.new(input)
+      reader.process
 
-        expect(reader.reduction).to eq(result)
+      expect(reader.reduction).to eq(result)
     end
   end
 
@@ -49,7 +49,7 @@ describe 'AlchemicalReduction' do
     end
 
     # puts counts
-    lowest = counts.sort_by { |key, value| value }.first
+    lowest = counts.min_by { |_key, value| value }
 
     expect(lowest[0]).to eq("c")
     expect(lowest[1]).to eq(4)
@@ -70,7 +70,7 @@ describe 'AlchemicalReduction' do
       counts[letter] = length
     end
 
-    lowest = counts.sort_by { |key, value| value }.first
+    lowest = counts.min_by { |_key, value| value }
 
     expect(lowest[0]).to eq("f")
     expect(lowest[1]).to eq(4996)

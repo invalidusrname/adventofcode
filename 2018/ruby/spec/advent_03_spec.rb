@@ -10,7 +10,7 @@ describe 'ClaimReader' do
     [
       "#1 @ 1,3: 4x4",
       "#2 @ 3,1: 4x4",
-      "#3 @ 5,5: 2x2",
+      "#3 @ 5,5: 2x2"
     ]
   end
 
@@ -40,45 +40,42 @@ describe 'ClaimReader' do
       claim = claims[index]
       matrix = claim.rectangle.matrix
 
-      for row in (0...matrix.row_count)
-        for column in (0...matrix.column_count)
+      (0...matrix.row_count).each do |row|
+        (0...matrix.column_count).each do |column|
           val = matrix[row, column]
-          if val == 1
-            if fabric[row, column] == 0
-              fabric[row, column] = [claim.id]
-            else
-              fabric[row, column] << claim.id
-            end
+          next unless val == 1
 
-            fabric[row, column] = fabric[row, column].uniq
-
-            if fabric[row, column].count > 1
-              ids = [fabric[row, column].uniq + [claim.id]].flatten.uniq
-              overlapping_ids << ids
-            end
+          if fabric[row, column] == 0
+            fabric[row, column] = [claim.id]
+          else
+            fabric[row, column] << claim.id
           end
 
+          fabric[row, column] = fabric[row, column].uniq
+
+          if fabric[row, column].count > 1
+            ids = [fabric[row, column].uniq + [claim.id]].flatten.uniq
+            overlapping_ids << ids
+          end
         end
       end
     end
 
     count = 0
 
-    for row in (0...fabric.row_count)
-      for column in (0...fabric.column_count)
+    (0...fabric.row_count).each do |row|
+      (0...fabric.column_count).each do |column|
         e = fabric[row, column]
-        if e.is_a? Array
-          count += 1
-        end
+        count += 1 if e.is_a? Array
       end
     end
 
     overlapping_ids.flatten!
     overlapping_ids.uniq!
 
-    non_overlapping_claim_id = (claims.collect { |c| c.id } - overlapping_ids).first.to_i
+    non_overlapping_claim_id = (claims.collect(&:id) - overlapping_ids).first.to_i
 
-    expect(count).to eq(113576)
+    expect(count).to eq(113_576)
     expect(non_overlapping_claim_id).to eq(825)
   end
 
@@ -106,5 +103,3 @@ describe 'ClaimReader' do
     # 0 0 0 1 1 1 1 1
   end
 end
-
-
