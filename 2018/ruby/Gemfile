@@ -2,6 +2,8 @@
 
 source 'https://rubygems.org'
 
+ruby File.open('.ruby-version', 'rb') { |f| f.read.chomp }
+
 gem 'pry'
 gem 'rspec', '~> 3.8.0'
 gem 'rubocop', '~> 0.60.0'
