@@ -100,3 +100,4 @@ RSpec.configure do |config|
 end
 
 require 'pry'
+require 'awesome_print'

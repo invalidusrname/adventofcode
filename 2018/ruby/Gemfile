@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 
 ruby File.open('.ruby-version', 'rb') { |f| f.read.chomp }
 
+gem 'awesome_print'
 gem 'pry', '~> 0.12.0'
 gem 'rspec', '~> 3.8.0'
 gem 'rubocop', '~> 0.60'
