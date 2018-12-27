@@ -14,7 +14,9 @@ class FrequencyScanner
     the_number = nil
     frequencies = [0]
 
-    begin
+    loop do
+      break if the_number
+
       numbers.each do |number|
         freq += number
         if frequencies.include?(freq)
@@ -25,7 +27,7 @@ class FrequencyScanner
           frequencies << freq
         end
       end
-    end while the_number.nil?
+    end
 
     the_number
   end
