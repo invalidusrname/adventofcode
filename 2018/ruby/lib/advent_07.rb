@@ -1,5 +1,3 @@
-require 'set'
-
 class Graph
   attr_accessor :nodes
 
