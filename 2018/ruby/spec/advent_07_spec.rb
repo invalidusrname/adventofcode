@@ -20,41 +20,68 @@ describe 'SumOfItsParts' do
     ]
   end
 
-  it "figures out the sample order" do
-    input = sample_input
-    nodes = input.flatten.uniq.collect { |n| Node.new(n) }
+  def get_nodes(input, weighted = false, seed_weight = 0)
+    input.flatten.uniq.collect do |n|
+      if weighted
+        WeightedNode.new(n, seed_weight)
+      else
+        Node.new(n)
+      end
+    end
+  end
 
-    edges = input.map do |pair|
+  def get_edges(input, nodes)
+    input.map do |pair|
       node_x = nodes.detect { |n| n.name == pair[0] }
       node_y = nodes.detect { |n| n.name == pair[1] }
 
       [node_x, node_y]
     end
+  end
+
+  def create_graph(input, weighted = false, seed_weight = 0)
+    nodes = get_nodes(input, weighted, seed_weight)
+    edges = get_edges(input, nodes)
 
     graph = Graph.new(nodes)
-    edges.each { |item| graph.add_edge(item[1], item[0]) }
+    edges.each { |item| graph.add_dependency(item[1], item[0]) }
+
+    graph
+  end
+
+  it "figures out the sample order" do
+    graph = create_graph(sample_input)
 
     orderer = Orderer.new(graph)
+    orderer.process
 
     expect(orderer.compressed_order).to eq("CABDFE")
   end
 
-  it "figures out the puzzle order" do
-    input = puzzle_input
-    nodes = input.flatten.uniq.collect { |n| Node.new(n) }
-
-    edges = input.map do |pair|
-      node_x = nodes.detect { |n| n.name == pair[0] }
-      node_y = nodes.detect { |n| n.name == pair[1] }
-
-      [node_x, node_y]
-    end
-
-    graph = Graph.new(nodes)
-    edges.each { |item| graph.add_edge(item[1], item[0]) }
+  xit "figures out the puzzle order" do
+    graph = create_graph(puzzle_input)
 
     orderer = Orderer.new(graph)
+    orderer.process
 
     expect(orderer.compressed_order).to eq("BHRTWCYSELPUVZAOIJKGMFQDXN")
+  end
+
+  it "figures out part 2 sample order" do
+    graph = create_graph(sample_input, true, 0)
+
+    orderer = Orderer.new(graph)
+    seconds = orderer.process_with_workers(2)
+
+    expect(seconds).to eq(15)
+  end
+
+  xit "figures out part 2 puzzle order" do
+    graph = create_graph(puzzle_input, true, 60)
+
+    orderer = Orderer.new(graph)
+    seconds = orderer.process_with_workers(5)
+
+    expect(seconds).to eq(959)
   end
 end
