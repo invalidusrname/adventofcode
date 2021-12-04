@@ -43,38 +43,25 @@ class BinaryDiagnostic
     episolon_rate * gamma_rate
   end
 
+  def determine_rating(data, use_most_common_bit = true, index = 0)
+    return 0 if data.length.zero?
+    return data[0].to_i(2) if data.length == 1
+
+    bit = use_most_common_bit ? most_common_bit(data, index) : least_common_bit(data, index)
+    data.select! { |e| e[index] == bit.to_s }
+    index += 1
+
+    determine_rating(data, use_most_common_bit, index)
+  end
+
   def oxygen_generator_rating
     to_process = @data.map(&:clone)
-    rating = 0
-
-    (0...@word_length).each do |index|
-      bit = most_common_bit(to_process, index)
-      to_process.select! { |e| e[index] == bit.to_s }
-
-      if to_process.length == 1
-        rating = to_process[0].to_i(2)
-        break
-      end
-    end
-
-    rating
+    determine_rating(to_process)
   end
 
   def co2_scubber_rating
     to_process = @data.map(&:clone)
-    rating = 0
-
-    (0...@word_length).each do |index|
-      bit = least_common_bit(to_process, index)
-      to_process.select! { |e| e[index] == bit.to_s }
-
-      if to_process.length == 1
-        rating = to_process[0].to_i(2)
-        break
-      end
-    end
-
-    rating
+    determine_rating(to_process, false)
   end
 
   def life_support_rating
