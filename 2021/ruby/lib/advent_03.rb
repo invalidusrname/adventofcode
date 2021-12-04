@@ -4,11 +4,6 @@ class BinaryDiagnostic
     @word_length = data[0].to_s.length
   end
 
-  def most_common_bit(data, index)
-    zero_count, one_count = bit_count(data, index)
-    one_count >= zero_count ? 1 : 0
-  end
-
   def bit_count(data, index)
     zero_count = 0
     one_count = 0
@@ -22,6 +17,11 @@ class BinaryDiagnostic
     end
 
     [zero_count, one_count]
+  end
+
+  def most_common_bit(data, index)
+    zero_count, one_count = bit_count(data, index)
+    one_count >= zero_count ? 1 : 0
   end
 
   def least_common_bit(data, index)
