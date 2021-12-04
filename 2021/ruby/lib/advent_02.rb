@@ -56,9 +56,11 @@ class AimCalculator
       action, amount = line.split(' ')
       amount = amount.to_i
       process_action(action, amount)
-
-      #puts "#{line} -> AIM: #{@aim} | HORIZONTAL_POSITION: #{@horizontal_position} | DEPTH: #{@depth} | PRODUCT: #{product}"
     end
+  end
+
+  def debug
+    puts "#{line} -> AIM: #{@aim} | HORIZONTAL_POSITION: #{@horizontal_position} | DEPTH: #{@depth} | PRODUCT: #{product}"
   end
 
   def product
