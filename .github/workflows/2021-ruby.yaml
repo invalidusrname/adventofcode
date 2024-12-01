@@ -1,0 +1,34 @@
+name: 2021-ruby
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+    paths:
+        - 2021/ruby/**
+
+defaults:
+  run:
+    working-directory: ./2021/ruby
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Determine ruby version
+      id: determine-ruby-version
+      run: |
+        VERSION=$(cat .ruby-version)
+        echo "VERSION=${VERSION}" >> "$GITHUB_OUTPUT"
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ steps.determine-ruby-version.outputs.VERSION }}
+        bundler-cache: true
+    - name: Install gems
+      run: |
+        gem update bundler
+        bundle
+    - name: Run tests
+      run: bundle exec rspec
