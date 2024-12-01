@@ -26,9 +26,5 @@ jobs:
       with:
         ruby-version: ${{ steps.determine-ruby-version.outputs.VERSION }}
         bundler-cache: true
-    - name: Install gems
-      run: |
-        gem update bundler
-        bundle
     - name: Run tests
       run: bundle exec rspec
