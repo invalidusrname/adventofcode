@@ -1,5 +1,8 @@
 # Advent of Code
 
+[![2021-ruby](https://github.com/invalidusrname/adventofcode/actions/workflows/2021-ruby.yaml/badge.svg)](https://github.com/invalidusrname/adventofcode/actions/workflows/2021-ruby.yaml)
+
+
 Solutions for [Advent of Code 2021](https://adventofcode.com/2021) done in Ruby
 
 ## Setup
