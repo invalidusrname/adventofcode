@@ -2,7 +2,7 @@
 
 [![2024-ruby](https://github.com/invalidusrname/adventofcode/actions/workflows/2024-ruby.yaml/badge.svg)](https://github.com/invalidusrname/adventofcode/actions/workflows/2024-ruby.yaml)
 
-Solutions for [Advent of Code 2024](https://adventofcode.com/2024) done in Ruby
+Solutions for [Advent of Code 2024](https://adventofcode.com/2024) done in ruby
 
 ## Setup
 
