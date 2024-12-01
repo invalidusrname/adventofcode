@@ -1,4 +1,4 @@
-# Advent of Code 
+# Advent of Code
 
 Solutions for [Advent of Code 2018](https://adventofcode.com/2018) done in Ruby
 
