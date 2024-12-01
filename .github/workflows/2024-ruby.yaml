@@ -1,9 +1,11 @@
-name: ruby
+name: 2024-ruby
 
 on:
   pull_request:
   push:
     branches: [master]
+    paths:
+        - 2024/ruby
 
 defaults:
   run:
