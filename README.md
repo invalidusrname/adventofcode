@@ -1,8 +1,6 @@
 # Advent of Code
 
-[![ruby](https://github.com/invalidusrname/adventofcode/actions/workflows/ruby.yaml/badge.svg)](https://github.com/invalidusrname/adventofcode/actions/workflows/ruby.yaml)
-
-
+[![2024-ruby](https://github.com/invalidusrname/adventofcode/actions/workflows/2024-ruby.yaml/badge.svg)](https://github.com/invalidusrname/adventofcode/actions/workflows/2024-ruby.yaml)
 
 My solutions for [Advent of Code](https://adventofcode.com) problems.
 
