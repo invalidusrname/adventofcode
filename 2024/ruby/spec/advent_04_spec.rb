@@ -1,13 +1,6 @@
 require 'spec_helper'
 require 'advent_04_ceres_search'
 
-# data = [
-#   [".", ".", ".", "."],
-#   [".", ".", ".", "."],
-#   [".", ".", ".", "."],
-#   [".", ".", ".", "."],
-# ]
-
 describe "WordSearch" do
   it "counts horizontal" do
     data = [
@@ -18,7 +11,6 @@ describe "WordSearch" do
     ]
 
     search = WordSearch.new(data)
-
     expect(search.horizonal_count).to eq(1)
   end
 
