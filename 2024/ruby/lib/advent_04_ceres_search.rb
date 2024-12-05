@@ -76,13 +76,13 @@ class WordSearch
   def cross_word_at?(row, col)
     cross_word = "MAS"
 
-    diag_1 = letter_at(row - 1, col - 1) + letter_at(row, col) + letter_at(row + 1, col + 1)
-    diag_2 = letter_at(row + 1, col - 1) + letter_at(row, col) + letter_at(row - 1, col + 1)
+    diag1 = letter_at(row - 1, col - 1) + letter_at(row, col) + letter_at(row + 1, col + 1)
+    diag2 = letter_at(row + 1, col - 1) + letter_at(row, col) + letter_at(row - 1, col + 1)
 
-    diag_1_match = [cross_word, cross_word.reverse].any? { |str| str == diag_1 }
-    diag_2_match = [cross_word, cross_word.reverse].any? { |str| str == diag_2 }
+    diag1_match = [cross_word, cross_word.reverse].any? { |str| str == diag1 }
+    diag2_match = [cross_word, cross_word.reverse].any? { |str| str == diag2 }
 
-    diag_1_match && diag_2_match
+    diag1_match && diag2_match
   end
 
   def cross_word_count
@@ -146,10 +146,4 @@ class WordSearch
       puts
     end
   end
-end
-
-def badName
-  return unless something
-
-  test
 end
