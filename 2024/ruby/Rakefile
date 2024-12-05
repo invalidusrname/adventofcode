@@ -1,22 +1,60 @@
 # frozen_string_literal: true
 
-require 'fileutils'
+require "date"
+require "erb"
+require "net/http"
+require "open-uri"
+require "fileutils"
 
 def next_advent_number
-  latest = Dir['./lib/advent*.rb'].map { |p| p.match(/\d{2}/)&.[](0)&.to_i }.compact.max || 0
+  latest = Dir["./lib/advent*.rb"].map { |p| p.match(/\d{2}/)&.[](0)&.to_i }.compact.max || 0
   latest + 1
 end
 
-desc 'create class and spec file for DAY'
+desc "create class and spec file for DAY"
 task :new do
-  day = ENV['DAY'].nil? ? next_advent_number : ENV['DAY'].to_i
+  today = Date.today
 
-  raise 'invalid DAY' unless day.between?(1, 31)
+  day = ENV["DAY"].nil? ? next_advent_number : ENV["DAY"].to_i
+  year = ENV["YEAR"].nil? ? today.year : ENV["YEAR"].to_i
 
-  formatted_day = day.to_s.rjust(2, '0')
+  raise "invalid DAY" unless day.between?(1, 31)
+  raise "invalid YEAR" unless year.between?(2015, today.year)
 
-  FileUtils.touch("./lib/advent_#{formatted_day}.rb")
-  FileUtils.touch("./spec/advent_#{formatted_day}_spec.rb")
-  FileUtils.touch("./spec/fixtures/advent-#{formatted_day}.txt")
-  FileUtils.touch("./spec/fixtures/advent-#{formatted_day}-sample.txt")
+  html = Net::HTTP.get(URI.parse("https://adventofcode.com/#{year}/day/#{day}"))
+
+  title = html.match(%r{<h2>--- Day \d+: ([A-Za-z0-9\s-]+) ---</h2>}) { |m| m[1] }.to_s
+
+  formatted_title = title.tr("-", "").tr(" ", "").gsub(/(.)([A-Z])/, '\1_\2').downcase
+  formatted_day = day.to_s.rjust(2, "0")
+
+  basename = "advent_#{formatted_day}_#{formatted_title}"
+
+  templates = [
+    { template: "./templates/klass.rb.erb", path: "./lib/#{basename}.rb" },
+    { template: "./templates/spec.rb.erb",  path: "./spec/#{basename}_spec.rb" }
+  ]
+
+  templates.each do |h|
+    path = h[:path]
+    next if File.exist?(path)
+
+    erb = ERB.new(File.read(h[:template]))
+    rendered = erb.result_with_hash(require_path: basename, day_number: formatted_day)
+
+    puts "creating #{path}"
+    puts rendered.inspect
+    puts "----------------"
+
+    File.write(path, rendered)
+  end
+
+  puzzle_inputs = [
+    "advent-#{formatted_day}-sample.txt",
+    "advent-#{formatted_day}.txt"
+  ]
+
+  puzzle_inputs.each do |name|
+    FileUtils.touch("./spec/fixtures/#{name}")
+  end
 end

@@ -1,0 +1,16 @@
+require "spec_helper"
+require "<%= require_path %>"
+
+describe "Puzzle" do
+  context "with sample data" do
+    let(:data) do
+      File.readlines("./spec/fixtures/advent-<%= day_number %>-sample.txt").map { |l| l.chomp.chars }
+    end
+  end
+
+  context "with puzzle data" do
+    let(:data) do
+      File.readlines("./spec/fixtures/advent-<%= day_number %>.txt").map { |l| l.chomp.chars }
+    end
+  end
+end
