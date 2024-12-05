@@ -25,7 +25,7 @@ class Muller
   end
 
   def process_piece(str)
-    splits = str.tr("^0123456789,", "").split(",")
+    splits = str.tr('^0123456789,', '').split(',')
 
     splits[0].to_i * splits[1].to_i
   end

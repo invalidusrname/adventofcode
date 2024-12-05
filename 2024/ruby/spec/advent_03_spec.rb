@@ -2,14 +2,14 @@ require 'spec_helper'
 require 'pry'
 require 'advent_03_mull_it_over'
 
-describe "Muller" do
-  context "with uncorrupted pieces" do
+describe 'Muller' do
+  context 'with uncorrupted pieces' do
     let(:data) { File.read('./spec/fixtures/advent-03-sample-ii.txt').chomp }
 
     it 'parses uncorrupted pieces' do
       muller = Muller.new(data)
 
-      expect(muller.uncorrupted_pieces).to eq(["mul(2,4)", "mul(8,5)"])
+      expect(muller.uncorrupted_pieces).to eq(['mul(2,4)', 'mul(8,5)'])
     end
 
     it 'mulls uncorrupted data' do
@@ -19,13 +19,13 @@ describe "Muller" do
     end
   end
 
-  context "with sample data" do
+  context 'with sample data' do
     let(:data) { File.read('./spec/fixtures/advent-03-sample.txt').chomp }
 
     it 'parses the pieces' do
       muller = Muller.new(data)
 
-      expect(muller.pieces).to eq(["mul(2,4)", "mul(5,5)", "mul(11,8)", "mul(8,5)"])
+      expect(muller.pieces).to eq(['mul(2,4)', 'mul(5,5)', 'mul(11,8)', 'mul(8,5)'])
     end
 
     it 'mulls the data' do
@@ -35,7 +35,7 @@ describe "Muller" do
     end
   end
 
-  context "with puzzle data" do
+  context 'with puzzle data' do
     let(:data) { File.read('./spec/fixtures/advent-03.txt').chomp }
 
     it 'mulls the data' do

@@ -26,7 +26,7 @@ class Report
 
   def safe_levels(direction, levels)
     levels.each_index do |i|
-      next if i == 0
+      next if i.zero?
 
       current = levels[i]
       prev = levels[i - 1]

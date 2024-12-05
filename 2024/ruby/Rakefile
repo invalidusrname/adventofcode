@@ -1,0 +1,22 @@
+# frozen_string_literal: true
+
+require 'fileutils'
+
+def next_advent_number
+  latest = Dir['./lib/advent*.rb'].map { |p| p.match(/\d{2}/)&.[](0)&.to_i }.compact.max || 0
+  latest + 1
+end
+
+desc 'create class and spec file for DAY'
+task :new do
+  day = ENV['DAY'].nil? ? next_advent_number : ENV['DAY'].to_i
+
+  raise 'invalid DAY' unless day.between?(1, 31)
+
+  formatted_day = day.to_s.rjust(2, '0')
+
+  FileUtils.touch("./lib/advent_#{formatted_day}.rb")
+  FileUtils.touch("./spec/advent_#{formatted_day}_spec.rb")
+  FileUtils.touch("./spec/fixtures/advent-#{formatted_day}.txt")
+  FileUtils.touch("./spec/fixtures/advent-#{formatted_day}-sample.txt")
+end
