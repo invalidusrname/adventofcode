@@ -16,7 +16,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/shared/setup
-      - uses: andrewmcodes/rubocop-linter-action@v3.3.0
+      - name: Run rubocop
+        run: bundle exec rubocop
   tests:
     runs-on: ubuntu-latest
     steps:
