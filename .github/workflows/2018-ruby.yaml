@@ -26,5 +26,6 @@ jobs:
       with:
         ruby-version: ${{ steps.determine-ruby-version.outputs.VERSION }}
         bundler-cache: true
+        working-directory: ./2018/ruby
     - name: Run tests
       run: bundle exec rspec

@@ -58,7 +58,7 @@ describe 'SumOfItsParts' do
     expect(orderer.compressed_order).to eq("CABDFE")
   end
 
-  xit "figures out the puzzle order" do
+  it "figures out the puzzle order", slow: true do
     graph = create_graph(puzzle_input)
 
     orderer = Orderer.new(graph)
@@ -76,7 +76,7 @@ describe 'SumOfItsParts' do
     expect(seconds).to eq(15)
   end
 
-  xit "figures out part 2 puzzle order" do
+  it "figures out part 2 puzzle order", slow: true do
     graph = create_graph(puzzle_input, true, 60)
 
     orderer = Orderer.new(graph)

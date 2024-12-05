@@ -29,7 +29,7 @@ describe 'ClaimReader' do
     expect(rectangle.width).to eq(4)
   end
 
-  it "solves the puzzle", solution: true do
+  it "solves the puzzle", solution: true, slow: true do
     reader = ClaimReader.new(puzzle_input)
     claims = reader.process
 

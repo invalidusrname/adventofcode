@@ -42,10 +42,6 @@ task :new do
     erb = ERB.new(File.read(h[:template]))
     rendered = erb.result_with_hash(require_path: basename, day_number: formatted_day)
 
-    puts "creating #{path}"
-    puts rendered.inspect
-    puts "----------------"
-
     File.write(path, rendered)
   end
 

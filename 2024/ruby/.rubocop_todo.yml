@@ -21,30 +21,3 @@ Metrics/BlockLength:
 # Configuration parameters: CountComments, CountAsOne.
 Metrics/ClassLength:
   Max: 120
-
-# Offense count: 2
-# Configuration parameters: EnforcedStyle, AllowedPatterns.
-# SupportedStyles: snake_case, camelCase
-Naming/MethodName:
-  Exclude:
-    - 'lib/advent_04_ceres_search.rb'
-    - 'test.rb'
-
-# Offense count: 2
-# Configuration parameters: EnforcedStyle, CheckMethodNames, CheckSymbols, AllowedIdentifiers, AllowedPatterns.
-# SupportedStyles: snake_case, normalcase, non_integer
-# AllowedIdentifiers: capture3, iso8601, rfc1123_date, rfc822, rfc2822, rfc3339, x86_64
-Naming/VariableNumber:
-  Exclude:
-    - 'lib/advent_04_ceres_search.rb'
-
-# Offense count: 4
-# Configuration parameters: AllowedConstants.
-Style/Documentation:
-  Exclude:
-    - 'spec/**/*'
-    - 'test/**/*'
-    - 'lib/advent_01_hystorian_hysteria.rb'
-    - 'lib/advent_02_red_nosed_reports.rb'
-    - 'lib/advent_03_mull_it_over.rb'
-    - 'lib/advent_04_ceres_search.rb'

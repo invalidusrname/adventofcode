@@ -6,7 +6,7 @@ class Report
   end
 
   def initial_direction(levels)
-    levels.length > 1 && levels[0] < levels[1] ? 'increasing' : 'decreasing'
+    levels.length > 1 && levels[0] < levels[1] ? "increasing" : "decreasing"
   end
 
   def safe_with_dampener?
@@ -44,7 +44,7 @@ class Report
   end
 
   def valid_direction?(direction, level, prev)
-    (prev < level && direction == 'increasing') || (prev > level && direction == 'decreasing')
+    (prev < level && direction == "increasing") || (prev > level && direction == "decreasing")
   end
 
   def adjacent_safe?(prev, level)
