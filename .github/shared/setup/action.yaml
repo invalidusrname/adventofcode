@@ -1,4 +1,5 @@
 name: "setup ruby"
+description: "checks out code and sets up ruby"
 
 runs:
   using: "composite"
