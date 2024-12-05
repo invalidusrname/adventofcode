@@ -4,7 +4,8 @@ description: "checks out code and sets up ruby"
 runs:
   using: "composite"
   steps:
-    - uses: actions/checkout@v3
+    - name: Check out code
+      uses: actions/checkout@v3
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
