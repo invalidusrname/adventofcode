@@ -1,11 +1,9 @@
 name: "setup ruby"
-description: "sets up ruby"
+description: "setup ruby"
 
 runs:
   using: "composite"
   steps:
-    - name: Check out code
-      uses: actions/checkout@v3
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
