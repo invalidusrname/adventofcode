@@ -11,6 +11,9 @@ Style/Documentation:
   Enabled: false
 Style/FrozenStringLiteralComment:
   Enabled: false
+Style/StringLiterals:
+  Enabled: true
+  EnforcedStyle: double_quotes
 Style/TrailingCommaInHashLiteral:
   Enabled: false
 Style/NumericPredicate:
@@ -18,8 +21,6 @@ Style/NumericPredicate:
 Metrics/BlockLength:
   Exclude:
     - spec/**/*
-
-
 RSpec/ExampleLength:
   Max: 20
 RSpec/MultipleExpectations:
