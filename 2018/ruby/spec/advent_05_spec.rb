@@ -24,7 +24,7 @@ describe 'AlchemicalReduction' do
     end
   end
 
-  xit "solves part 1" do
+  it "solves part 1", slow: true do
     reader = AlchemicalReduction.new(puzzle_input)
     reader.process
 
@@ -55,7 +55,7 @@ describe 'AlchemicalReduction' do
     expect(lowest[1]).to eq(4)
   end
 
-  xit "solves part 2" do
+  it "solves part 2", slow: true do
     counts = {}
 
     ('a'..'z').each do |letter|

@@ -30,18 +30,17 @@ describe 'ChronalCoordinates' do
     expect(c.largest_area).to eq(17)
   end
 
-  xit "solves part 1" do
+  it "solves part 1", slow: true do
     coordinates = puzzle_input.collect do |item|
       Coordinate.new(item[0], item[1])
     end
 
     c = ChronalCoordinates.new(coordinates)
-    # c.print_grid
 
     expect(c.largest_area).to eq(3401)
   end
 
-  it "solves part 2" do
+  it "solves part 2", slow: true do
     coordinates = puzzle_input.collect do |item|
       Coordinate.new(item[0], item[1])
     end
