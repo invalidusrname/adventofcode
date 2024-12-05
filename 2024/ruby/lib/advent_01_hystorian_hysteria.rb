@@ -1,8 +1,8 @@
-require 'pry'
+require "pry"
 
 class DistanceCalculator
   def initialize(list_one, list_two)
-    raise 'lists must be the same length' if list_one.length != list_two.length
+    raise "lists must be the same length" if list_one.length != list_two.length
 
     @list_one = list_one
     @list_two = list_two
