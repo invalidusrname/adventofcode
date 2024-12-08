@@ -115,7 +115,8 @@ class Orderer
   end
 
   def reorder
-    numbers = page_update.numbers
+    numbers = page_update.numbers.to_a
+
     return [] if numbers.empty?
 
     numbers.sort! do |a, b|
