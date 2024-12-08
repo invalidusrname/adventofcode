@@ -104,24 +104,15 @@ class Orderer
   end
 
   def in_order?
-    numbers = page_update.numbers
-
-    numbers.each_with_index do |number, i|
-      rest = numbers[i + 1..]
-      return false unless lower_priority_pages_for(number).all? { |n| rest.include?(n) }
-    end
-
-    true
+    pairs = page_update.numbers.each_cons(2)
+    pairs.all? { |a, b| lower_priority_pages_for(a).include?(b) }
   end
 
   def reorder
     numbers = page_update.numbers.to_a
-
     return [] if numbers.empty?
 
-    numbers.sort! do |a, b|
-      lower_priority_pages_for(a).include?(b) ? -1 : 1
-    end
+    numbers.sort! { |a, b| lower_priority_pages_for(a).include?(b) ? -1 : 1 }
 
     PageUpdate.new(numbers)
   end
