@@ -12,20 +12,21 @@ defaults:
     working-directory: ./2021/ruby
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: debug
+        run: pwd
+      - name: Setup Ruby
+        uses: ./.github/shared/setup
+      - name: Run rubocop
+        run: bundle exec rubocop
   tests:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: Determine ruby version
-      id: determine-ruby-version
-      run: |
-        VERSION=$(cat .ruby-version)
-        echo "VERSION=${VERSION}" >> "$GITHUB_OUTPUT"
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: ${{ steps.determine-ruby-version.outputs.VERSION }}
-        bundler-cache: true
-        working-directory: ./2021/ruby
-    - name: Run tests
-      run: bundle exec rspec
+      - uses: actions/checkout@v3
+      - name: Setup Ruby
+        uses: ./.github/shared/setup
+      - name: Run tests
+        run: bundle exec rspec
