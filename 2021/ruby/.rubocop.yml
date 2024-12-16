@@ -1,3 +1,7 @@
+require:
+  - rubocop-rspec
+  - rubocop-rake
+
 AllCops:
   Exclude:
     - bin/**/*
@@ -8,7 +12,8 @@ Style/Documentation:
 Style/FrozenStringLiteralComment:
   Enabled: false
 Style/StringLiterals:
-  Enabled: false
+  Enabled: true
+  EnforcedStyle: double_quotes
 Style/TrailingCommaInHashLiteral:
   Enabled: false
 Style/NumericPredicate:
@@ -16,5 +21,9 @@ Style/NumericPredicate:
 Metrics/BlockLength:
   Exclude:
     - spec/**/*
+RSpec/ExampleLength:
+  Max: 20
+RSpec/MultipleExpectations:
+  Enabled: false
 
 inherit_from: .rubocop_todo.yml

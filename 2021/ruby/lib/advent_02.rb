@@ -1,4 +1,3 @@
-
 class DepthCalculator
   def initialize(data)
     @data = data
@@ -8,18 +7,18 @@ class DepthCalculator
 
   def process_action(action, amount)
     case action
-    when 'forward'
+    when "forward"
       @horizontal_position += amount
-    when 'down'
+    when "down"
       @depth += amount
-    when 'up'
+    when "up"
       @depth -= amount
     end
   end
 
   def process
     @data.each do |line|
-      action, amount = line.split(' ')
+      action, amount = line.split(" ")
       amount = amount.to_i
       process_action(action, amount)
     end
@@ -29,7 +28,6 @@ class DepthCalculator
     @horizontal_position * @depth
   end
 end
-
 
 class AimCalculator
   def initialize(data)
@@ -41,19 +39,19 @@ class AimCalculator
 
   def process_action(action, amount)
     case action
-    when 'forward'
+    when "forward"
       @horizontal_position += amount
       @depth += (@aim * amount)
-    when 'down'
+    when "down"
       @aim += amount
-    when 'up'
+    when "up"
       @aim -= amount
     end
   end
 
   def process
     @data.each do |line|
-      action, amount = line.split(' ')
+      action, amount = line.split(" ")
       amount = amount.to_i
       process_action(action, amount)
     end
