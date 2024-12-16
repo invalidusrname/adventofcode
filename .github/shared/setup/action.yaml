@@ -1,11 +1,14 @@
-name: "setup ruby"
-description: "setup ruby"
-
+name: setup ruby
+description: setup ruby
+inputs:
+  working-directory:
+    description: directory to use
+    required: true
 runs:
-  using: "composite"
+  using: composite
   steps:
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
         bundler-cache: true
-        working-directory: ./2024/ruby
+        working-directory: ${{ inputs.working-directory }}
